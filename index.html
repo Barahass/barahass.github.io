@@ -5,19 +5,220 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BARAHASS GLOBAL</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            text-align: center;
-            margin-top: 20vh;
-            background-color: #f4f4f9;
-            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            color: #ffffff;
+            /* Layered SVG background representing raspberry field rows under a clear sky */
+            background: 
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.7)),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='xMidYMid slice'%3E%3Cdefs%3E%3ClinearGradient id='sky' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%2338bdf8'/%3E%3Cstop offset='40%25' stop-color='%23bae6fd'/%3E%3Cstop offset='100%25' stop-color='%23fef08a'/%3E%3C/linearGradient%3E%3ClinearGradient id='rowFar' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%2315803d'/%3E%3Cstop offset='100%25' stop-color='%23166534'/%3E%3C/linearGradient%3E%3ClinearGradient id='rowMid' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%2316a34a'/%3E%3Cstop offset='100%25' stop-color='%2314532d'/%3E%3C/linearGradient%3E%3ClinearGradient id='rowNear' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%2322c55e'/%3E%3Cstop offset='100%25' stop-color='%230f5132'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='900' fill='url(%23sky)'/%3E%3C!-- Distant Mountains --%3E%3Cpath d='M0 450 Q 360 380 720 440 T 1440 420 L 1440 900 L 0 900 Z' fill='%23475569' opacity='0.3'/%3E%3C!-- Crop Rows in Perspective --%3E%3Cpath d='M-100 900 L450 420 L550 420 L100 900 Z' fill='url(%23rowFar)'/%3E%3Cpath d='M200 900 L580 420 L680 420 L500 900 Z' fill='url(%23rowMid)'/%3E%3Cpath d='M600 900 L710 420 L810 420 L900 900 Z' fill='url(%23rowMid)'/%3E%3Cpath d='M1000 900 L840 420 L940 420 L1300 900 Z' fill='url(%23rowFar)'/%3E%3Cpath d='M-300 900 L300 450 L420 450 L-100 900 Z' fill='url(%23rowNear)'/%3E%3Cpath d='M1200 900 L880 450 L1000 450 L1600 900 Z' fill='url(%23rowNear)'/%3E%3C!-- Berry Dots on Rows --%3E%3Ccircle cx='380' cy='600' r='8' fill='%23e11d48'/%3E%3Ccircle cx='410' cy='650' r='10' fill='%23be123c'/%3E%3Ccircle cx='340' cy='720' r='12' fill='%23e11d48'/%3E%3Ccircle cx='1050' cy='620' r='9' fill='%23e11d48'/%3E%3Ccircle cx='1100' cy='700' r='11' fill='%23be123c'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
         }
-        h1 { font-size: 3rem; margin-bottom: 10px; }
-        p { font-size: 1.2rem; color: #666; }
+
+        /* Hero Content Card */
+        .container {
+            max-width: 750px;
+            margin: 60px auto 20px auto;
+            padding: 40px 30px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 2.75rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+        }
+
+        h1 span {
+            color: #f43f5e;
+        }
+
+        p {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+            margin-bottom: 25px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(244, 63, 94, 0.2);
+            border: 1px solid rgba(244, 63, 94, 0.4);
+            color: #fecdd3;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Animated Road & Truck Logistics Layer */
+        .logistics-scene {
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            margin-top: auto;
+        }
+
+        .road {
+            width: 100%;
+            height: 60px;
+            background: #1e293b;
+            border-top: 4px solid #475569;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .road-line {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 0;
+            border-top: 3px dashed #cbd5e1;
+        }
+
+        .destination-tag {
+            position: absolute;
+            right: 20px;
+            top: -35px;
+            background: #16a34a;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .truck-wrapper {
+            position: absolute;
+            bottom: 12px;
+            left: -200px;
+            animation: drive 14s linear infinite;
+        }
+
+        /* Continuous drive from Farm (Left) to Market (Right) */
+        @keyframes drive {
+            0% {
+                left: -200px;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* SVG Truck Styling */
+        .truck-svg {
+            width: 170px;
+            height: auto;
+            filter: drop-shadow(0 8px 6px rgba(0, 0, 0, 0.5));
+        }
+
+        .wheel {
+            animation: spin 0.6s linear infinite;
+            transform-origin: center;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-    <h1>BARAHASS GLOBAL</h1>
-    <p>Built on Trust. Grown for Quality</p>
+
+    <div class="container">
+        <h1>Fresh <span>Raspberry</span> Supply Chain</h1>
+        <p>From rich farm soil directly to wholesale produce markets. Managing high-yield berry crop health, field irrigation efficiency, and fresh logistics.</p>
+        
+        <div class="badges">
+            <span class="badge">🌱 Farm Production</span>
+            <span class="badge">📦 Cold-Chain Logistics</span>
+            <span class="badge">🏪 Direct Market Delivery</span>
+        </div>
+    </div>
+
+    <!-- Logistics Animation Scene -->
+    <div class="logistics-scene">
+        <div class="destination-tag">🏪 Fresh Produce Market</div>
+        <div class="road">
+            <div class="road-line"></div>
+            
+            <div class="truck-wrapper">
+                <svg class="truck-svg" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Refrigerated Cargo Container -->
+                    <rect x="10" y="10" width="115" height="48" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+                    <!-- Container Door & Ridge Detail -->
+                    <line x1="120" y1="10" x2="120" y2="58" stroke="#94a3b8" stroke-width="2"/>
+                    <line x1="35" y1="10" x2="35" y2="58" stroke="#e2e8f0" stroke-width="1.5"/>
+                    <line x1="65" y1="10" x2="65" y2="58" stroke="#e2e8f0" stroke-width="1.5"/>
+                    <line x1="95" y1="10" x2="95" y2="58" stroke="#e2e8f0" stroke-width="1.5"/>
+                    
+                    <!-- Fresh Raspberry Decal on Container -->
+                    <g transform="translate(50, 22)">
+                        <!-- Berry Cluster -->
+                        <circle cx="12" cy="10" r="5" fill="#e11d48"/>
+                        <circle cx="20" cy="10" r="5" fill="#e11d48"/>
+                        <circle cx="8" cy="17" r="5" fill="#be123c"/>
+                        <circle cx="16" cy="17" r="5.5" fill="#e11d48"/>
+                        <circle cx="24" cy="17" r="5" fill="#be123c"/>
+                        <circle cx="12" cy="24" r="5" fill="#e11d48"/>
+                        <circle cx="20" cy="24" r="5" fill="#be123c"/>
+                        <circle cx="16" cy="29" r="4.5" fill="#9f1239"/>
+                        <!-- Berry Leaves -->
+                        <path d="M 12 6 Q 16 2 20 6 Q 16 8 12 6 Z" fill="#16a34a"/>
+                    </g>
+                    
+                    <!-- Truck Cabin -->
+                    <path d="M 125 25 L 155 25 L 175 42 L 175 58 L 125 58 Z" fill="#e11d48"/>
+                    <!-- Cabin Window -->
+                    <path d="M 135 30 L 152 30 L 165 42 L 135 42 Z" fill="#38bdf8" opacity="0.8"/>
+                    <!-- Bumper & Chassis -->
+                    <rect x="5" y="56" width="175" height="6" fill="#334155"/>
+                    <rect x="173" y="50" width="6" height="10" fill="#94a3b8"/>
+                    
+                    <!-- Wheels -->
+                    <g class="wheel" transform="translate(35, 62)">
+                        <circle cx="0" cy="0" r="10" fill="#0f172a"/>
+                        <circle cx="0" cy="0" r="4" fill="#94a3b8"/>
+                    </g>
+                    <g class="wheel" transform="translate(95, 62)">
+                        <circle cx="0" cy="0" r="10" fill="#0f172a"/>
+                        <circle cx="0" cy="0" r="4" fill="#94a3b8"/>
+                    </g>
+                    <g class="wheel" transform="translate(150, 62)">
+                        <circle cx="0" cy="0" r="10" fill="#0f172a"/>
+                        <circle cx="0" cy="0" r="4" fill="#94a3b8"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
